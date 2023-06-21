@@ -35,7 +35,15 @@ public class ClientesController : ControllerBase
     [HttpPut("{id}")]
     public ActionResult Put(int id)
     {
-        return null;
+        // if (id != pizza.Id) return BadRequest();
+           
+        // var existingPizza = PizzaService.Get(id);
+
+        // if(existingPizza is null) return NotFound();
+    
+        // PizzaService.Update(pizza);           
+    
+        // return NoContent();
     }
 
     [HttpDelete("{id}")]
