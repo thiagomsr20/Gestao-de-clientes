@@ -9,11 +9,11 @@ namespace ClientesCRUD.Controllers;
 public class ClientesController : ControllerBase
 {
 
-    [HttpGet("")]
+    [HttpGet]
     public ActionResult<List<Cliente>> GetAll()
     {
         var cliente = ServicesHttp.RetornarTodosClientesCadastrados();
-        if(cliente == null) return BadRequest();
+        if(cliente == null) return NotFound();
         return Ok();
     }
 
@@ -21,7 +21,7 @@ public class ClientesController : ControllerBase
     public ActionResult<Cliente> GetByID(int id)
     {
         var cliente = ServicesHttp.RetornarUmClientePeloID(id);
-        if(cliente == null) return BadRequest();
+        if(cliente == null) return NotFound();
         return Ok();
     }
 
@@ -33,17 +33,15 @@ public class ClientesController : ControllerBase
     }
 
     [HttpPut("{id}")]
-    public ActionResult Put(int id)
+    public ActionResult Put(int id, Cliente cliente)
     {
-        // if (id != pizza.Id) return BadRequest();
-           
-        // var existingPizza = PizzaService.Get(id);
+        if (id != cliente.ID) return BadRequest();
 
-        // if(existingPizza is null) return NotFound();
-    
-        // PizzaService.Update(pizza);           
-    
-        // return NoContent();
+        var clienteExistente = ServicesHttp.RetornarUmClientePeloID(id);
+        if(clienteExistente is null) return NotFound();
+
+        ServicesHttp.AtualizarDadosDeUmCliente(id, cliente);           
+        return NoContent();
     }
 
     [HttpDelete("{id}")]
