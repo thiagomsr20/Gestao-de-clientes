@@ -12,17 +12,17 @@ public class ClientesController : ControllerBase
     [HttpGet]
     public ActionResult<List<Cliente>> GetAll()
     {
-        var cliente = ServicesHttp.RetornarTodosClientesCadastrados();
-        if(cliente == null) return NotFound();
-        return Ok();
+        var clientes = ServicesHttp.RetornarTodosClientesCadastrados();
+        if(clientes is null) return NotFound();
+        return clientes;
     }
 
     [HttpGet("{id}")]
     public ActionResult<Cliente> GetByID(int id)
     {
         var cliente = ServicesHttp.RetornarUmClientePeloID(id);
-        if(cliente == null) return NotFound();
-        return Ok();
+        if(cliente is null) return NotFound();
+        return cliente;
     }
 
     [HttpPost]
@@ -41,13 +41,13 @@ public class ClientesController : ControllerBase
         if(clienteExistente is null) return NotFound();
 
         ServicesHttp.AtualizarDadosDeUmCliente(id, cliente);           
-        return NoContent();
+        return Ok();
     }
 
     [HttpDelete("{id}")]
     public ActionResult Delete(int id)
     {
-        if(ServicesHttp.RetornarUmClientePeloID(id) == null) return BadRequest();
+        if(ServicesHttp.RetornarUmClientePeloID(id) is null) return NotFound();
 
         ServicesHttp.RemoverUmClienteDaLista(id);
         return Ok();

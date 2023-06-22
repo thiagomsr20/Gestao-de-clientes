@@ -4,11 +4,18 @@ namespace ClientesCRUD.Services;
 
 public class ServicesHttp
 {
-    public static List<Cliente> ListaDeClientesCadastrados = new List<Cliente>();
-    public static int proximaID = 0;
+    static List<Cliente> ListaDeClientesCadastrados = new List<Cliente>();
+    static int proximaID = 1;
 
     // Get
-    public static List<Cliente> RetornarTodosClientesCadastrados() => ListaDeClientesCadastrados;
+    public static List<Cliente>? RetornarTodosClientesCadastrados()
+    {
+        if(ListaDeClientesCadastrados.Count() == 0)
+        {
+            return null;
+        }
+        return ListaDeClientesCadastrados;
+    }
 
     // Get {id}
     public static Cliente? RetornarUmClientePeloID(int id) => ListaDeClientesCadastrados.FirstOrDefault(i => i.ID == id);
@@ -24,7 +31,7 @@ public class ServicesHttp
     public static void RemoverUmClienteDaLista(int id)
     {
         var cliente = RetornarUmClientePeloID(id);
-        if(cliente == null) return;
+        if(cliente is null) return;
 
         ListaDeClientesCadastrados.Remove(cliente);
     }
@@ -33,7 +40,7 @@ public class ServicesHttp
     public static void AtualizarDadosDeUmCliente(int id, Cliente clienteAtualizado)
     {
         var clienteExistente = ListaDeClientesCadastrados.FirstOrDefault(clientes => clientes.ID == id);
-        if(clienteExistente == null) return;
+        if(clienteExistente is null) return;
 
         clienteExistente = clienteAtualizado;
     }
