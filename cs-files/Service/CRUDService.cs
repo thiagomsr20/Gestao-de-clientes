@@ -39,10 +39,10 @@ public class ServicesHttp
     // Put {id}
     public static void AtualizarDadosDeUmCliente(int id, Cliente clienteAtualizado)
     {
-        var clienteExistente = ListaDeClientesCadastrados.FirstOrDefault(clientes => clientes.ID == id);
-        if(clienteExistente is null) return;
+        var index = ListaDeClientesCadastrados.FindIndex(cliente => cliente.ID == id);
+        if(index == -1) return;
 
-        clienteExistente = clienteAtualizado;
+        ListaDeClientesCadastrados[index] = clienteAtualizado;
     }
 
 }
