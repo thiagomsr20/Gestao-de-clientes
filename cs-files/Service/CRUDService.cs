@@ -32,7 +32,10 @@ public class ServicesHttp
     // Put {id}
     public static void AtualizarDadosDeUmCliente(int id, Cliente clienteAtualizado)
     {
-        
+        var clienteExistente = ListaDeClientesCadastrados.FirstOrDefault(clientes => clientes.ID == id);
+        if(clienteExistente == null) return;
+
+        clienteExistente = clienteAtualizado;
     }
 
 }
